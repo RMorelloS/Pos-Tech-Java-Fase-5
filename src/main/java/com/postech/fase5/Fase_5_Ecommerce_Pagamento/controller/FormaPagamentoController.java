@@ -42,7 +42,7 @@ public class FormaPagamentoController {
     }
 
     @DeleteMapping("/{apelido}")
-    public ResponseEntity<?> atualizarFormaPagamento(@PathVariable String apelido){
+    public ResponseEntity<?> deletarFormaPagamento(@PathVariable String apelido){
         try {
             return ResponseEntity.status(HttpStatus.OK).body(formaPagamentoService.deletarFormaPagamento(apelido));
         }catch(Exception e){
