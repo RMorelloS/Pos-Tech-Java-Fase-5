@@ -18,3 +18,9 @@ Foram utilizadas as seguintes tecnologias/técnicas:
 A arquitetura do sistema é apresentada no fluxo a seguir:
 
 ![Diagrama_postech_fase5 drawio](https://github.com/RMorelloS/Pos-Tech-Java-Fase-5/assets/32580031/c3411817-be0f-4eb7-9c21-96e30508d9dc)
+
+# Funcionalidades
+
+## 1. Ecommerce_Login
+
+### 1.1 
