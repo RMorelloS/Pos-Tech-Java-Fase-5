@@ -115,5 +115,24 @@ Resposta: retorna 200-OK e as informações atualizadas do usuário administrado
 
 ![image](https://github.com/RMorelloS/Pos-Tech-Java-Fase-5/assets/32580031/e7f2d739-0507-4f62-a20c-fa97393a68c0)
 
+### 1.5 Realizar login
+
+Para realizar login, independente de usuário convencional/administrador, realizar uma requisição do tipo POST para o endpoint /login, passando as credenciais do usuário no corpo da requisição:
+
+```bash
+   curl --location 'localhost:8084/login' \
+   --header 'Content-Type: application/x-www-form-urlencoded' \
+   --header 'Cookie: JSESSIONID=672E5470F07A21312AED2D1550E66B0D' \
+   --data-urlencode 'username=admin' \
+   --data-urlencode 'password=postechfase5'
+```
+
+Resposta: retorna 200-OK e um token JWT para utilização nos demais endpoints
+![image](https://github.com/RMorelloS/Pos-Tech-Java-Fase-5/assets/32580031/49ca0408-6f86-4659-895b-ab45ce74f35e)
+
+Caso o usuário não seja identificado, o HTML da página de login é retornado:
+![image](https://github.com/RMorelloS/Pos-Tech-Java-Fase-5/assets/32580031/16ad1e06-f58f-4b83-903d-fba7e5c4b4b1)
+
+
 
 
