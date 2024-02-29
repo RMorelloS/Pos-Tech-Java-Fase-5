@@ -23,8 +23,9 @@ public class SecurityAdapter {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .requestMatchers(HttpMethod.POST, "/criarUsuarioAdmin").hasAuthority("ADMIN")
-                .requestMatchers(HttpMethod.PUT, "/atualizarUsuarioAdmin").hasAuthority("ADMIN")
+                .requestMatchers(HttpMethod.POST, "/usuarios/criarUsuarioAdmin").hasAuthority("ADMIN")
+                .requestMatchers(HttpMethod.POST, "/usuarios/criarUsuario").permitAll()
+                .requestMatchers(HttpMethod.PUT, "/usuarios/atualizarUsuarioAdmin").hasAuthority("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin(formLogin ->
