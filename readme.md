@@ -134,5 +134,47 @@ Caso o usuário não seja identificado, o HTML da página de login é retornado:
 ![image](https://github.com/RMorelloS/Pos-Tech-Java-Fase-5/assets/32580031/16ad1e06-f58f-4b83-903d-fba7e5c4b4b1)
 
 
+## 2. Ecommerce_Itens
+
+### 2.1 Criar item
+
+### 2.2 Obter todos os itens
+
+### 2.3 Obter item por ID
+
+### 2.4 Atualizar item
+
+### 2.5 Excluir item
+
+
+
+
+## 3. Ecommerce_Carrinho
+
+### 3.1 Adicionar item ao carrinho
+
+### 3.2 Remover item do carrinho
+
+### 3.3 Visualizar carrinho
+
+### 3.4 Limpar carrinho
+
+
+
+## 4. Ecommerce_Pagamento
+
+### 4.1 Adicionar forma de pagamento
+
+### 4.2 Remover forma de pagamento
+
+### 4.3 Visualizar forma de pagamento pelo apelido
+
+### 4.4 Atualizar forma de pagamento
+
+### 4.4 Atualizar forma de pagamento
+
+### 4.5 Visualizar fatura
+
+### 4.6 Pagar fatura
 
 
