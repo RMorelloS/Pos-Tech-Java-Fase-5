@@ -37,3 +37,83 @@ Para criar um usuário convencional, realizar uma requisição do tipo POST para
    "authorities":"USER"
    }'
 ```
+
+Resposta: retorna 200-OK e as informações do usuário criado
+![image](https://github.com/RMorelloS/Pos-Tech-Java-Fase-5/assets/32580031/82deb9c1-88e8-4ddc-893a-b8b1d56bfad7)
+
+
+### 1.2 Criar usuário administrador
+
+Para criar um usuário administrador, realizar uma requisição do tipo POST para o endpoint /usuarios/criarUsuarioAdmin, passando as credenciais do usuário e o cookie do usuário administrador logado:
+
+**Importante: para criar um usuário administrador, é necessário estar logado com outro usuário administrador.**
+
+```bash
+curl --location 'localhost:8084/usuarios/criarUsuarioAdmin' \
+--header 'Content-Type: application/json' \
+--header 'Cookie: JSESSIONID=74C9850649D50E7A82C8BFCDA091532C' \
+--data '{
+"userlogin":"ricardo",
+"userkey":"ricardo",
+"authorities":"ADMIN"
+}'
+```
+
+Resposta: retorna 200-OK e as informações do usuário administrador criado
+
+![image](https://github.com/RMorelloS/Pos-Tech-Java-Fase-5/assets/32580031/3f6391ac-340c-4e4d-89e9-6c00eb72a3ac)
+
+**Importante: caso um usuário convencional tente cadastrar um usuário administrador, será retornada a seguinte mensagem:**
+
+![image](https://github.com/RMorelloS/Pos-Tech-Java-Fase-5/assets/32580031/a130aedd-faf8-46ba-ba70-0708e8c226a4)
+
+
+### 1.3 Atualizar usuário convencional
+
+Para atualizar um usuário convencional, realizar uma requisição do tipo PUT para o endpoint /usuarios/atualizarUsuario, passando as novas credenciais do usuário:
+
+```bash
+curl --location --request PUT 'localhost:8084/usuarios/atualizarUsuario' \
+--header 'Content-Type: application/json' \
+--header 'Cookie: JSESSIONID=74C9850649D50E7A82C8BFCDA091532C' \
+--data '{
+"userlogin":"usuarioExemplo",
+"userkey":"usuarioExemploNovaSenha",
+"authorities":"USER"
+}'
+```
+
+Resposta: retorna 200-OK e as informações atualizadas do usuário
+
+![image](https://github.com/RMorelloS/Pos-Tech-Java-Fase-5/assets/32580031/b4fc18f8-6ae7-4b1a-8ef9-daccb2018e4a)
+
+**Importante: existe uma cláusula no código para os endpoints abertos que impede um usuário convencional de cadastrar ou atualizar suas authorities para as de administrador**
+
+![image](https://github.com/RMorelloS/Pos-Tech-Java-Fase-5/assets/32580031/8710300c-6572-489d-a62c-db91f0fa828b)
+
+
+### 1.4 Atualizar usuário administrador
+
+Para atualizar um usuário administrador, realizar uma requisição do tipo PUT para o endpoint /usuarios/atualizarUsuarioAdmin, passando as novas credenciais do usuário:
+
+```bash
+   curl --location --request PUT 'localhost:8084/usuarios/atualizarUsuarioAdmin' \
+   --header 'Content-Type: application/json' \
+   --header 'Cookie: JSESSIONID=672E5470F07A21312AED2D1550E66B0D' \
+   --data '{
+   "userlogin":"ricardo",
+   "userkey":"ricardoNovaSenha",
+   "authorities":"ADMIN"
+   }'
+```
+
+Resposta: retorna 200-OK e as informações atualizadas do usuário administrador
+![image](https://github.com/RMorelloS/Pos-Tech-Java-Fase-5/assets/32580031/a8a89517-a983-4fb8-adeb-26875600710f)
+
+
+**Importante: caso um usuário convencional tente atualizar um usuário administrador, será retornada a seguinte mensagem:**
+
+![image](https://github.com/RMorelloS/Pos-Tech-Java-Fase-5/assets/32580031/e7f2d739-0507-4f62-a20c-fa97393a68c0)
+
+
+
