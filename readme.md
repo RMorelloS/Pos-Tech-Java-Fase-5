@@ -23,4 +23,17 @@ A arquitetura do sistema é apresentada no fluxo a seguir:
 
 ## 1. Ecommerce_Login
 
-### 1.1 
+### 1.1 Criar usuário convencional
+
+Para criar um usuário convencional, realizar uma requisição do tipo POST para o endpoint /usuarios/criarUsuario, passando as credenciais do usuário:
+
+```bash
+   curl --location 'localhost:8084/usuarios/criarUsuario' \
+   --header 'Content-Type: application/json' \
+   --header 'Cookie: JSESSIONID=B9FBBA1519FFF896443C0E16EA70D06D' \
+   --data '{
+   "userlogin":"usuarioExemplo",
+   "userkey":"usuarioExemplo",
+   "authorities":"USER"
+   }'
+```
