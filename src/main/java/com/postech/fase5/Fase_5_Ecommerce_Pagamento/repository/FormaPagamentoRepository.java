@@ -42,11 +42,12 @@ public class FormaPagamentoRepository {
             throw e;
         }
     }
-
     public FormaPagamento cadastrarFormaPagamento(FormaPagamento formaPagamento) {
         try {
             Map<String, AttributeValue> itemValues = new HashMap<>();
-            itemValues.put("userLogin", AttributeValue.builder().s(userService.getCurrentUser().getName()).build());
+            var userLogin = userService.getCurrentUser().getName();
+            formaPagamento.setUserLogin(userLogin);
+            itemValues.put("userLogin", AttributeValue.builder().s(userLogin).build());
             itemValues.put("apelido", AttributeValue.builder().s(formaPagamento.getApelido()).build());
             itemValues.put("numeroCartao", AttributeValue.builder().s(formaPagamento.getNumeroCartao()).build());
             itemValues.put("CVV", AttributeValue.builder().s(String.valueOf(formaPagamento.getCVV())).build());
@@ -65,9 +66,12 @@ public class FormaPagamentoRepository {
 
     public FormaPagamento atualizarFormaPagamento(String apelido, FormaPagamento formaPagamento) {
         try{
+
+            var userLogin = userService.getCurrentUser().getName();
+            formaPagamento.setUserLogin(userLogin);
             Map<String, AttributeValue> itemKey = new HashMap<>();
             itemKey.put("apelido", AttributeValue.builder().s(apelido).build());
-            itemKey.put("userLogin", AttributeValue.builder().s(userService.getCurrentUser().getName()).build());
+            itemKey.put("userLogin", AttributeValue.builder().s(userLogin).build());
 
             Map<String, AttributeValueUpdate> itemValues = new HashMap<>();
             itemValues.put("CVV", AttributeValueUpdate.builder().
