@@ -265,7 +265,7 @@ Resposta: retorna 200-OK e o ID do item excluído.
 
 ## 3. Ecommerce_Carrinho
 
-O microsserviço Ecommerce_Carriniho utiliza, por padrão, a porta 8081.
+O microsserviço Ecommerce_Carrinho utiliza, por padrão, a porta 8081.
 
 ### 3.1 Adicionar item ao carrinho
 
@@ -334,20 +334,141 @@ Resposta: retorna 200-OK e os itens que constam no carrinho, bem como o valor to
 
 ## 4. Ecommerce_Pagamento
 
+O microsserviço Ecommerce_Carrinho utiliza, por padrão, a porta 8083.
 
 
 ### 4.1 Adicionar forma de pagamento
 
+Para adicionar uma forma de pagamento, realizar uma requisição do tipo POST para o endpoint /formaPagamento, passando as informações da forma de pagamento:
+
+```bash
+
+curl --location 'localhost:8083/formaPagamento/' \
+--header 'token: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjpbeyJhdXRob3JpdHkiOiJBRE1JTiJ9XSwiaWF0IjoxNzA5Mzc3MzA5LCJleHAiOjE3MDkzNzgzMDl9.d0BgSMQ43MLonGGzAfFuzkA8Zv2MW1xR3TYaNqA3I7LbVStJjBm6Cz9rPM4_qjQskSw9qH3VoWPKYQKBmvw4pA' \
+--header 'Content-Type: application/json' \
+--header 'Cookie: JSESSIONID=6487F9325F5705B8BFC6AE4A13AD56E6' \
+--data '{
+    "apelido":"cartao-ricardo-11",
+    "numeroCartao":"1234567891011",
+    "cvv":212121,
+    "dataVencimento":"19/05/2026"
+}'
+
+```
+
+Resposta: retorna 200-OK e as informações da forma de pagamento adicionada:
+
+![image](https://github.com/RMorelloS/Pos-Tech-Java-Fase-5/assets/32580031/1529b36c-6699-4bbb-8913-bebd62f096d5)
+
 ### 4.2 Remover forma de pagamento
+
+Para deletar uma forma de pagamento, realizar uma requisição do tipo DELETE para o endpoint /formaPagamento, passando o apelido da forma de pagamento a ser excluída:
+
+```bash
+curl --location --request DELETE 'localhost:8083/formaPagamento/cartao-ricardo-11' \
+--header 'token: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjpbeyJhdXRob3JpdHkiOiJBRE1JTiJ9XSwiaWF0IjoxNzA5Mzc3MzA5LCJleHAiOjE3MDkzNzgzMDl9.d0BgSMQ43MLonGGzAfFuzkA8Zv2MW1xR3TYaNqA3I7LbVStJjBm6Cz9rPM4_qjQskSw9qH3VoWPKYQKBmvw4pA' \
+--header 'Content-Type: application/json' \
+--header 'Cookie: JSESSIONID=6487F9325F5705B8BFC6AE4A13AD56E6' \
+--data '{
+    "apelido":"cartao-ricardo",
+    "numeroCartao":"1234567890",
+    "CVV":"233",
+    "dataVencimento":"19/05/2024"
+}'
+```
+
+Resposta: retorna 200-OK e o apelido da forma de pagamento excluída:
+
+![image](https://github.com/RMorelloS/Pos-Tech-Java-Fase-5/assets/32580031/c2549043-17a8-4d40-a4f4-9e7a0b5df84d)
+
 
 ### 4.3 Visualizar forma de pagamento pelo apelido
 
-### 4.4 Atualizar forma de pagamento
+Para visualizar uma forma de pagamento pelo apelido, realizar uma requisição do tipo GET para o endpoint /formaPagamento, passando o apelido da forma de pagamento como parâmetro na URL:
+
+```bash
+curl --location 'localhost:8083/formaPagamento/cartao-ricardo-11' \
+--header 'token: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjpbeyJhdXRob3JpdHkiOiJBRE1JTiJ9XSwiaWF0IjoxNzA5Mzc3MzA5LCJleHAiOjE3MDkzNzgzMDl9.d0BgSMQ43MLonGGzAfFuzkA8Zv2MW1xR3TYaNqA3I7LbVStJjBm6Cz9rPM4_qjQskSw9qH3VoWPKYQKBmvw4pA' \
+--header 'Cookie: JSESSIONID=6487F9325F5705B8BFC6AE4A13AD56E6' \
+--data ''
+```
+
+Resposta: retorna 200-OK e as informações da forma de pagamento buscadas:
+
+![image](https://github.com/RMorelloS/Pos-Tech-Java-Fase-5/assets/32580031/acd3301c-9d5b-4f81-835d-d6f7ffb26e20)
+
+Caso a forma de pagamento não exista, uma mensagem de erro será retornada:
+
+![image](https://github.com/RMorelloS/Pos-Tech-Java-Fase-5/assets/32580031/d1aca8ce-97fe-49e2-91a0-3bba2dd6e7aa)
+
+
 
 ### 4.4 Atualizar forma de pagamento
+
+Para atualizar uma forma de pagamento, realizar uma requisição do tipo PUT para o endpoint/formaPagamento, passando o apelido da forma de pagamento como parâmetro na URL e as informações atualizadas no corpo da requisição:
+
+```bash
+curl --location --request PUT 'localhost:8083/formaPagamento/cartao-ricardo-11' \
+--header 'token: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjpbeyJhdXRob3JpdHkiOiJBRE1JTiJ9XSwiaWF0IjoxNzA5Mzc3MzA5LCJleHAiOjE3MDkzNzgzMDl9.d0BgSMQ43MLonGGzAfFuzkA8Zv2MW1xR3TYaNqA3I7LbVStJjBm6Cz9rPM4_qjQskSw9qH3VoWPKYQKBmvw4pA' \
+--header 'Content-Type: application/json' \
+--header 'Cookie: JSESSIONID=6487F9325F5705B8BFC6AE4A13AD56E6' \
+--data '{
+    "apelido": "cartao-ricardo-11",
+    "numeroCartao":"1110987654321",
+    "cvv":212121,
+    "dataVencimento":"19/05/2026"
+}'
+```
+
+Resposta: retorna 200-OK e as informações atualizadas da forma de pagamento:
+
+![image](https://github.com/RMorelloS/Pos-Tech-Java-Fase-5/assets/32580031/e27b646c-64e3-4ba0-923a-2ef69f0b1798)
+
 
 ### 4.5 Visualizar fatura
 
+Para visualizar a fatura total, realizar uma requisição do tipo GET para o endpoint /pagamento/visualizarFatura, passando o apelido da forma de pagamento como parâmetro na URL:
+
+```bash
+curl --location 'localhost:8083/pagamento/visualizarFatura/cartao-ricardo-11' \
+--header 'token: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjpbeyJhdXRob3JpdHkiOiJBRE1JTiJ9XSwiaWF0IjoxNzA5Mzc3MzA5LCJleHAiOjE3MDkzNzgzMDl9.d0BgSMQ43MLonGGzAfFuzkA8Zv2MW1xR3TYaNqA3I7LbVStJjBm6Cz9rPM4_qjQskSw9qH3VoWPKYQKBmvw4pA' \
+--header 'Cookie: JSESSIONID=6487F9325F5705B8BFC6AE4A13AD56E6'
+```
+
+Resposta: retorna 200-OK e um JSON contendo três informações principais:
+
+1. "itensCarrinho": Lista e informações de todos os itens adicionados ao carrinho
+2. "totalCarrinho": Valor total calculado para a fatura, de acordo com os itens adicionados
+3. "userLogin": login do usuário atrelado ao carrinho
+4. "formaPagamento": informações da forma de pagamento selecionadas para liquidação da fatura
+
+![image](https://github.com/RMorelloS/Pos-Tech-Java-Fase-5/assets/32580031/16bbcdd9-42d6-4bed-81a7-bba73789c9b7)
+
+
 ### 4.6 Pagar fatura
+
+Para pagar a fatura, realizar uma requisição do tipo POST para o endpoint /pagamento/pagarFatura, passando o apelido da forma de pagamento como parâmetro na URL:
+
+curl --location 'localhost:8083/pagamento/pagarFatura/cartao-ricardo-11' \
+--header 'token: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjpbeyJhdXRob3JpdHkiOiJBRE1JTiJ9XSwiaWF0IjoxNzA5Mzc3MzA5LCJleHAiOjE3MDkzNzgzMDl9.d0BgSMQ43MLonGGzAfFuzkA8Zv2MW1xR3TYaNqA3I7LbVStJjBm6Cz9rPM4_qjQskSw9qH3VoWPKYQKBmvw4pA' \
+--header 'Content-Type: application/json' \
+--header 'Cookie: JSESSIONID=6487F9325F5705B8BFC6AE4A13AD56E6' \
+--data '{
+    "apelido":"cartao-ricardo-11",
+    "numeroCartao":"teste",
+    "cvv":212121,
+    "dataVencimento":"19/05/2026"
+}'
+
+Resposta: retorna 200-OK e uma mensagem mostrando que a fatura foi paga. O carrinho do usuário e o valor total a ser pago serão zerados pelo microsserviço de carrinho.
+
+![image](https://github.com/RMorelloS/Pos-Tech-Java-Fase-5/assets/32580031/e233955c-dc06-4e02-93fe-8618d4636988)
+
+Caso o usuário tente visualizar novamente o carrinho, este estará vazio novamente:
+
+![image](https://github.com/RMorelloS/Pos-Tech-Java-Fase-5/assets/32580031/e34ac63d-7cb6-4ded-a99e-0e8979443fa2)
+
+
+
 
 
