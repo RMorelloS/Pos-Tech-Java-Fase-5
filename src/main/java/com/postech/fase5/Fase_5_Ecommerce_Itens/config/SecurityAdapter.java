@@ -30,8 +30,8 @@ public class SecurityAdapter {
 
                 .authorizeRequests()
                 .requestMatchers(HttpMethod.GET, "/gestaoItens").hasAnyAuthority("ADMIN", "USER")
-                .requestMatchers(HttpMethod.DELETE, "/gestaoItens").hasAuthority("ADMIN")
-                .requestMatchers(HttpMethod.PUT, "/gestaoItens").hasAuthority("ADMIN")
+                .requestMatchers(HttpMethod.DELETE, "/gestaoItens/**").hasAuthority("ADMIN")
+                .requestMatchers(HttpMethod.PUT, "/gestaoItens/**").hasAuthority("ADMIN")
                 .requestMatchers(HttpMethod.POST, "/gestaoItens").hasAuthority("ADMIN")
                 .anyRequest().authenticated()
                 .and()
