@@ -23,6 +23,8 @@ A arquitetura do sistema é apresentada no fluxo a seguir:
 
 ## 1. Ecommerce_Login
 
+O microsserviço Ecommerce_Login utiliza, por padrão, a porta 8084.
+
 ### 1.1 Criar usuário convencional
 
 Para criar um usuário convencional, realizar uma requisição do tipo POST para o endpoint /usuarios/criarUsuario, passando as credenciais do usuário:
@@ -135,6 +137,8 @@ Caso o usuário não seja identificado, o HTML da página de login é retornado:
 
 
 ## 2. Ecommerce_Itens
+
+O microsserviço Ecommerce_Itens utiliza, por padrão, a porta 8082.
 
 ### 2.1 Criar item
 
@@ -261,17 +265,76 @@ Resposta: retorna 200-OK e o ID do item excluído.
 
 ## 3. Ecommerce_Carrinho
 
+O microsserviço Ecommerce_Carriniho utiliza, por padrão, a porta 8081.
+
 ### 3.1 Adicionar item ao carrinho
+
+Para adicionar um item ao carrinho, realizar uma requisição do tipo POST para o endpoint /carrinho/adicionarItem, passando as informações do Pedido na requisição (UUID do item e quantidade):
+
+```bash
+curl --location 'localhost:8081/carrinho/adicionarItem' \
+--header 'token: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjpbeyJhdXRob3JpdHkiOiJBRE1JTiJ9XSwiaWF0IjoxNzA5Mzc2Mjk2LCJleHAiOjE3MDkzNzcyOTZ9.X5J1RIQWRVLiCMX2X8TvsCr1cXfuW-sUYD6V3udnoMVZBdGpuLmJ-h248_rRr02jiq2eruzL94TCfh_IZGuQeg' \
+--header 'Content-Type: application/json' \
+--header 'Cookie: JSESSIONID=5247B208DCFE5B628522A24C0E70D938' \
+--data '{
+    "idItem": "2487e581-b5f9-44e6-a772-60f3ee48fd59",
+    "quantidade": 6
+}'
+```
+
+Resposta: retorna 200 - OK e o carrinho do usuário, contendo todos os itens e o valor total do carrinho:
+
+![image](https://github.com/RMorelloS/Pos-Tech-Java-Fase-5/assets/32580031/e1972449-981b-4e2f-8d26-4ca664befe10)
+
+Caso o microsserviço de carrinho solicite uma quantidade superior à quantidade em estoque, o microsserviço de itens retorna um erro:
+
+![image](https://github.com/RMorelloS/Pos-Tech-Java-Fase-5/assets/32580031/799982b1-5fce-43d2-be4e-3156c873373a)
+
 
 ### 3.2 Remover item do carrinho
 
+Para remover um item do carrinho, realizar uma requisição do tipo DELETE para o endpoint /carrinho/removerItem, passando o ID do item como parâmetro da URL:
+
+```bash
+curl --location --request POST 'localhost:8081/carrinho/removerItem/2487e581-b5f9-44e6-a772-60f3ee48fd59' \
+--header 'token: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjpbeyJhdXRob3JpdHkiOiJBRE1JTiJ9XSwiaWF0IjoxNzA5Mzc2Mjk2LCJleHAiOjE3MDkzNzcyOTZ9.X5J1RIQWRVLiCMX2X8TvsCr1cXfuW-sUYD6V3udnoMVZBdGpuLmJ-h248_rRr02jiq2eruzL94TCfh_IZGuQeg' \
+--header 'Cookie: JSESSIONID=5247B208DCFE5B628522A24C0E70D938' \
+--data ''
+```
+
+Resposta: retorna 200 - OK e o carrinho do usuário atualizado, inclusive com o valor total do carrinho recalculado:
+
+![image](https://github.com/RMorelloS/Pos-Tech-Java-Fase-5/assets/32580031/18bd50b8-5dae-4a25-b5fc-46e1f837ba3a)
+
+Após a remoção de um item do carrinho, o microsserviço de itens adicionará novamente a quantidade solicitada ao estoque:
+
+![image](https://github.com/RMorelloS/Pos-Tech-Java-Fase-5/assets/32580031/9607a45f-6c2c-4022-baca-2ea61ba188a1)
+
+Caso o item não seja encontrado no carrinho do usuário ou não exista, uma mensagem de erro será retornada pelo microsserviço de itens:
+
+![image](https://github.com/RMorelloS/Pos-Tech-Java-Fase-5/assets/32580031/0f4e9c84-1cca-4a31-9316-1cf9c6c6c394)
+
+
 ### 3.3 Visualizar carrinho
 
-### 3.4 Limpar carrinho
+Para visualizar o carrinho, realizar uma requisição do tipo GET para o endpoint /carrinho/visualizarCarrinho:
+
+```bash
+curl --location 'localhost:8081/carrinho/visualizarCarrinho' \
+--header 'token: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjpbeyJhdXRob3JpdHkiOiJBRE1JTiJ9XSwiaWF0IjoxNzA5Mzc2Mjk2LCJleHAiOjE3MDkzNzcyOTZ9.X5J1RIQWRVLiCMX2X8TvsCr1cXfuW-sUYD6V3udnoMVZBdGpuLmJ-h248_rRr02jiq2eruzL94TCfh_IZGuQeg' \
+--header 'Cookie: JSESSIONID=5247B208DCFE5B628522A24C0E70D938' \
+--data ''
+```
+
+Resposta: retorna 200-OK e os itens que constam no carrinho, bem como o valor total dos itens:
+
+![image](https://github.com/RMorelloS/Pos-Tech-Java-Fase-5/assets/32580031/192f840c-cf64-40c6-ac77-edc5d496353b)
 
 
 
 ## 4. Ecommerce_Pagamento
+
+
 
 ### 4.1 Adicionar forma de pagamento
 
