@@ -138,14 +138,124 @@ Caso o usuário não seja identificado, o HTML da página de login é retornado:
 
 ### 2.1 Criar item
 
+Para adicionar um item, realizar uma requisição do tipo POST para o endpoint /gestaoItens, passando as informações do novo item e o token JWT obtido via login realizado previamente:
+
+```bash
+  curl --location 'localhost:8082/gestaoItens' \
+--header 'token: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjpbeyJhdXRob3JpdHkiOiJBRE1JTiJ9XSwiaWF0IjoxNzA5Mzc0NjAyLCJleHAiOjE3MDkzNzU2MDJ9.VF843V2Oclt0tpS9-ueFDD2GQixDd0e84KWxJQXzSWKWw5FiPqjlX8TpfFrdu9t44xGbr11sIxIZiTYgHbyD7Q' \
+--header 'Content-Type: application/json' \
+--header 'Cookie: JSESSIONID=3F3A2FB70C0553A79A03070E7038AB6A' \
+--data '{
+   "precoItem": 1.5,
+  "nomeItem": "Coquinha",
+  "marcaItem": "Coca cola",
+  "descricao": "Refrigerante",
+  "quantidadeEstoque": 30
+}'
+```
+
+Resposta: retorna 200-OK e as informações do item criado
+![image](https://github.com/RMorelloS/Pos-Tech-Java-Fase-5/assets/32580031/035b916a-5546-4e2e-af1e-6c75d23d3ced)
+
+**Importante: o token JWT necessita estar atrelado a um usuário administrador. Usuários convencionais receberão um erro 403 forbidden:**
+
+![image](https://github.com/RMorelloS/Pos-Tech-Java-Fase-5/assets/32580031/5aded238-5036-4f0f-8a62-48c2a6d91a46)
+
+Caso o item tenha informações inválidas, como preço ou quantidade negativos, o usuário receberá uma mensagem de erro como retorno:
+
+![image](https://github.com/RMorelloS/Pos-Tech-Java-Fase-5/assets/32580031/4bfafa6f-a661-45a6-9051-4b2fdd425487)
+
+
 ### 2.2 Obter todos os itens
+
+Para obter todos os itens cadastrados, realizar uma requisição do tipo GET para o endpoint /obterItens:
+
+
+```bash
+curl --location 'localhost:8082/gestaoItens' \
+--header 'Cookie: JSESSIONID=07C1643AFD772AFC087B6959E60A2A50' \
+--data ''
+```
+
+Resposta: retorna 200-OK e as informações de todos os itens criados:
+
+![image](https://github.com/RMorelloS/Pos-Tech-Java-Fase-5/assets/32580031/a1c55b93-ea8e-44ff-9fae-f5358207fd4f)
+
+Para requisições GET, o endpoint /gestaoItens é aberto a todos os usuários, mesmo os não cadastrados. Por isso, não foi necessário enviar um token JWT na requisição.
 
 ### 2.3 Obter item por ID
 
+Para obter um item específico, realizar uma requisição do tipo GET para o endpoint /gestaoItens, passando o ID do item como parâmetro na URL:
+
+
+```bash
+curl --location 'http://localhost:8082/gestaoItens/85faaef6-0cfd-47ca-90bc-6b4292cb6fd9' \
+--header 'Cookie: JSESSIONID=07C1643AFD772AFC087B6959E60A2A50' \
+--data ''
+```
+
+Resposta: retorna 200-OK e a informação do item buscado:
+
+![image](https://github.com/RMorelloS/Pos-Tech-Java-Fase-5/assets/32580031/ccfe5b96-977f-498f-a96c-fc5210d7311a)
+
+Caso o item não exista, uma mensagem de erro será retornada:
+
+![image](https://github.com/RMorelloS/Pos-Tech-Java-Fase-5/assets/32580031/2a78b478-c911-4388-a401-57c5c35b8cc7)
+
+Para requisições GET, o endpoint /gestaoItens/{ID} é aberto a todos os usuários, mesmo os não cadastrados. Por isso, não foi necessário enviar um token JWT na requisição.
+
+
 ### 2.4 Atualizar item
+
+Para atualizar um item, realizar uma requisição do tipo PUT para o endpoint /gestaoItens, passando o ID do item como parâmetro na URL e as informações atualizadas do item no body:
+
+```bash
+
+curl --location --request PUT 'localhost:8082/gestaoItens/770e24fc-1316-48c4-b165-d01a02c7079b' \
+--header 'token: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjpbeyJhdXRob3JpdHkiOiJBRE1JTiJ9XSwiaWF0IjoxNzA3OTU4OTY5LCJleHAiOjE3MDc5NTk5Njl9.eREVfa--vf2lWCC01U1xc9PovES8Se71rhTX1sHstLEONEWirTSo5idbP9tRS-jYEGEBojSlqUcIM6pHKBJGJQ' \
+--header 'Content-Type: application/json' \
+--header 'Cookie: JSESSIONID=3351404F993FB5BC7CBED6A34B7DEBB2' \
+--data '{
+    "precoItem": 10.50,
+  "nomeItem": "Produto de Exemplo1",
+  "marcaItem": "Marca Exemplo1",
+  "descricao": "Descrição do Produto1",
+  "quantidadeEstoque": 51
+}'
+
+```
+
+Resposta: retorna 200-OK e a informação atualizada do item:
+
+![image](https://github.com/RMorelloS/Pos-Tech-Java-Fase-5/assets/32580031/278d4513-c919-4d79-8ad7-70b361cf6d6b)
+
+
+
+**Importante: o token JWT necessita estar atrelado a um usuário administrador. Usuários convencionais receberão um erro 403 forbidden:**
+
+![image](https://github.com/RMorelloS/Pos-Tech-Java-Fase-5/assets/32580031/8f565cd7-332b-42bc-bd82-653a3f7ac94c)
+
+
 
 ### 2.5 Excluir item
 
+Para excluir um item, realizar uma requisição do tipo DELETE para o endpoint /gestaoItens, passando o ID do item como parâmetro na URL:
+
+```bash
+curl --location --request DELETE 'localhost:8082/gestaoItens/85faaef6-0cfd-47ca-90bc-6b4292cb6fd3' \
+--header 'token: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjpbeyJhdXRob3JpdHkiOiJBRE1JTiJ9XSwiaWF0IjoxNzA5Mzc1MzE0LCJleHAiOjE3MDkzNzYzMTR9.VdA81Iwo3et0vyodci6AjvPD4o2gVIOYIskJQ94cSTdfOsH61iKYpF-Mrpmo4KEpL6g-g1NgOfE0mPVDMR0vlg' \
+--header 'Cookie: JSESSIONID=BE5B5AB0D8AB32EED13D5BE01262E616' \
+--data ''
+```
+
+Resposta: retorna 200-OK e o ID do item excluído.
+
+![image](https://github.com/RMorelloS/Pos-Tech-Java-Fase-5/assets/32580031/d822b4ce-900d-4057-ae08-c14d95e447b7)
+
+
+**Importante: o token JWT necessita estar atrelado a um usuário administrador. Usuários convencionais receberão um erro 403 forbidden:**
+
+![image](https://github.com/RMorelloS/Pos-Tech-Java-Fase-5/assets/32580031/cf4603cb-2b6f-42c2-8b44-bdc822ec958e)
 
 
 
