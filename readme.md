@@ -172,7 +172,7 @@ Caso o item tenha informações inválidas, como preço ou quantidade negativos,
 
 ### 2.2 Obter todos os itens
 
-Para obter todos os itens cadastrados, realizar uma requisição do tipo GET para o endpoint /obterItens:
+Para obter todos os itens cadastrados, realizar uma requisição do tipo GET para o endpoint /gestaoItens:
 
 
 ```bash
