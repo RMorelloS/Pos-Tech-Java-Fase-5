@@ -449,6 +449,7 @@ Resposta: retorna 200-OK e um JSON contendo três informações principais:
 
 Para pagar a fatura, realizar uma requisição do tipo POST para o endpoint /pagamento/pagarFatura, passando o apelido da forma de pagamento como parâmetro na URL:
 
+```bash
 curl --location 'localhost:8083/pagamento/pagarFatura/cartao-ricardo-11' \
 --header 'token: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjpbeyJhdXRob3JpdHkiOiJBRE1JTiJ9XSwiaWF0IjoxNzA5Mzc3MzA5LCJleHAiOjE3MDkzNzgzMDl9.d0BgSMQ43MLonGGzAfFuzkA8Zv2MW1xR3TYaNqA3I7LbVStJjBm6Cz9rPM4_qjQskSw9qH3VoWPKYQKBmvw4pA' \
 --header 'Content-Type: application/json' \
@@ -459,6 +460,7 @@ curl --location 'localhost:8083/pagamento/pagarFatura/cartao-ricardo-11' \
     "cvv":212121,
     "dataVencimento":"19/05/2026"
 }'
+```
 
 Resposta: retorna 200-OK e uma mensagem mostrando que a fatura foi paga. O carrinho do usuário e o valor total a ser pago serão zerados pelo microsserviço de carrinho.
 
