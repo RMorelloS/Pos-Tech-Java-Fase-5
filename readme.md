@@ -6,7 +6,7 @@ Foram desenvolvidas os seguintes microsserviços, cada qual alocado em uma branc
 
 1. Ecommerce_Login: Cadastro de usuários convencionais e usuários administradores. Geração de token JWT para autenticação das solicitações aos demais serviços. **Todos os microsserviços validam o token para cada requisição.**
 2. Ecommerce_Itens: Cadastro, visualização, exclusão e atualização de itens. 
-3. Ecommerce_Carrinho: Inclusão de itens no carrinho de compras. Visualização dos itens e exclusão do carrinho.
+3. Ecommerce_Carrinho: Inclusão, exclusão e visualização de itens no carrinho de compras.
 4. Ecommerce_Pagamento: Cadastro, visualização, exclusão e atualização de formas de pagamento. Visualização e pagamento de fatura.
    
 Foram utilizadas as seguintes tecnologias/técnicas:
